@@ -39,8 +39,8 @@ func (m WelcomeModel) View() string {
 	s += "This wizard will configure and install Tetrix CE on your machine.\n"
 	s += "You'll need:\n\n"
 	s += fmt.Sprintf("  %s GitHub OAuth App (Client ID + Secret)\n", styles.Bullet)
-	s += fmt.Sprintf("  %s Anthropic API Key (for AI features)\n", styles.Bullet)
-	s += fmt.Sprintf("  %s Voyage AI API Key (for code embeddings)\n", styles.Bullet)
+	s += fmt.Sprintf("  %s OpenAI API Key (for AI features + embeddings)\n", styles.Bullet)
+	s += fmt.Sprintf("  %s Context7 API Key (for documentation context)\n", styles.Bullet)
 	s += "\n" + styles.StatusBar.Render("[Enter] Continue  [q] Quit")
 	return s
 }

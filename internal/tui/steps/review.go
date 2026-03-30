@@ -48,10 +48,8 @@ func (m ReviewModel) View() string {
 
 	// AI Providers
 	s += styles.Subtitle.Render("  AI Providers") + "\n"
-	s += configLine("Anthropic", maskKey(m.cfg.AI.AnthropicAPIKey))
-	s += configLine("Voyage AI", maskKey(m.cfg.AI.VoyageAPIKey))
-	s += configLine("OpenAI", maskKeyOptional(m.cfg.AI.OpenAIAPIKey))
-	s += configLine("Google", maskKeyOptional(m.cfg.AI.GoogleAPIKey))
+	s += configLine("OpenAI", maskKey(m.cfg.AI.OpenAIAPIKey))
+	s += configLine("Context7", maskKey(m.cfg.AI.Context7APIKey))
 	s += "\n"
 
 	// Ports

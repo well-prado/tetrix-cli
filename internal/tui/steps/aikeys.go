@@ -19,44 +19,28 @@ type AIKeysModel struct {
 }
 
 const (
-	aiAnthropicKey = iota
-	aiVoyageKey
-	aiOpenAIKey
-	aiGoogleKey
+	aiOpenAIKey = iota
+	aiContext7Key
 )
 
 // NewAIKeysModel creates the AI keys step.
 func NewAIKeysModel(cfg *config.Config) AIKeysModel {
-	inputs := make([]textinput.Model, 4)
-
-	inputs[aiAnthropicKey] = textinput.New()
-	inputs[aiAnthropicKey].Placeholder = "sk-ant-api03-..."
-	inputs[aiAnthropicKey].EchoMode = textinput.EchoPassword
-	inputs[aiAnthropicKey].CharLimit = 120
-	inputs[aiAnthropicKey].Width = 44
-	inputs[aiAnthropicKey].Focus()
-	inputs[aiAnthropicKey].SetValue(cfg.AI.AnthropicAPIKey)
-
-	inputs[aiVoyageKey] = textinput.New()
-	inputs[aiVoyageKey].Placeholder = "pa-..."
-	inputs[aiVoyageKey].EchoMode = textinput.EchoPassword
-	inputs[aiVoyageKey].CharLimit = 80
-	inputs[aiVoyageKey].Width = 44
-	inputs[aiVoyageKey].SetValue(cfg.AI.VoyageAPIKey)
+	inputs := make([]textinput.Model, 2)
 
 	inputs[aiOpenAIKey] = textinput.New()
-	inputs[aiOpenAIKey].Placeholder = "sk-... (optional)"
+	inputs[aiOpenAIKey].Placeholder = "sk-..."
 	inputs[aiOpenAIKey].EchoMode = textinput.EchoPassword
-	inputs[aiOpenAIKey].CharLimit = 80
+	inputs[aiOpenAIKey].CharLimit = 120
 	inputs[aiOpenAIKey].Width = 44
+	inputs[aiOpenAIKey].Focus()
 	inputs[aiOpenAIKey].SetValue(cfg.AI.OpenAIAPIKey)
 
-	inputs[aiGoogleKey] = textinput.New()
-	inputs[aiGoogleKey].Placeholder = "AIza... (optional)"
-	inputs[aiGoogleKey].EchoMode = textinput.EchoPassword
-	inputs[aiGoogleKey].CharLimit = 80
-	inputs[aiGoogleKey].Width = 44
-	inputs[aiGoogleKey].SetValue(cfg.AI.GoogleAPIKey)
+	inputs[aiContext7Key] = textinput.New()
+	inputs[aiContext7Key].Placeholder = "ctx7-..."
+	inputs[aiContext7Key].EchoMode = textinput.EchoPassword
+	inputs[aiContext7Key].CharLimit = 80
+	inputs[aiContext7Key].Width = 44
+	inputs[aiContext7Key].SetValue(cfg.AI.Context7APIKey)
 
 	return AIKeysModel{inputs: inputs, focused: 0, cfg: cfg}
 }
@@ -74,7 +58,7 @@ func (m AIKeysModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.focused = (m.focused - 1 + len(m.inputs)) % len(m.inputs)
 			return m, m.updateFocus()
 		case "enter":
-			if m.focused >= aiOpenAIKey-1 {
+			if m.focused == len(m.inputs)-1 {
 				if err := m.validate(); err != "" {
 					m.err = err
 					return m, nil
@@ -97,15 +81,13 @@ func (m AIKeysModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 func (m AIKeysModel) View() string {
 	s := styles.Title.Render("AI API Keys") + "\n"
 	s += styles.StepIndicator.Render("Step 3/7") + "\n\n"
-	s += styles.Dimmed.Render("Tetrix uses AI for code understanding and semantic search.") + "\n\n"
+	s += styles.Dimmed.Render("Tetrix uses OpenAI for AI features and Context7 for documentation.") + "\n\n"
 
 	labels := []string{
-		"Anthropic API Key:    ",
-		"Voyage AI API Key:    ",
 		"OpenAI API Key:       ",
-		"Google API Key:       ",
+		"Context7 API Key:     ",
 	}
-	required := []bool{true, true, false, false}
+	required := []bool{true, true}
 
 	for i, input := range m.inputs {
 		label := styles.Label.Render(labels[i])
@@ -153,22 +135,20 @@ func (m *AIKeysModel) updateInputs(msg tea.Msg) tea.Cmd {
 }
 
 func (m *AIKeysModel) validate() string {
-	anthropic := strings.TrimSpace(m.inputs[aiAnthropicKey].Value())
-	voyage := strings.TrimSpace(m.inputs[aiVoyageKey].Value())
-	if anthropic == "" {
-		return "Anthropic API Key is required."
+	openai := strings.TrimSpace(m.inputs[aiOpenAIKey].Value())
+	context7 := strings.TrimSpace(m.inputs[aiContext7Key].Value())
+	if openai == "" {
+		return "OpenAI API Key is required."
 	}
-	if voyage == "" {
-		return "Voyage AI API Key is required for code embeddings."
+	if context7 == "" {
+		return "Context7 API Key is required."
 	}
 	return ""
 }
 
 func (m *AIKeysModel) save() {
-	m.cfg.AI.AnthropicAPIKey = strings.TrimSpace(m.inputs[aiAnthropicKey].Value())
-	m.cfg.AI.VoyageAPIKey = strings.TrimSpace(m.inputs[aiVoyageKey].Value())
 	m.cfg.AI.OpenAIAPIKey = strings.TrimSpace(m.inputs[aiOpenAIKey].Value())
-	m.cfg.AI.GoogleAPIKey = strings.TrimSpace(m.inputs[aiGoogleKey].Value())
+	m.cfg.AI.Context7APIKey = strings.TrimSpace(m.inputs[aiContext7Key].Value())
 }
 
 // GetConfig returns the updated config.

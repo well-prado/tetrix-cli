@@ -32,10 +32,8 @@ type TemplateData struct {
 	GitLabBaseURL      string
 
 	// AI
-	AnthropicAPIKey string
-	VoyageAPIKey    string
-	OpenAIAPIKey    string
-	GoogleAPIKey    string
+	OpenAIAPIKey   string
+	Context7APIKey string
 
 	// Ports
 	WebPort          int
@@ -78,10 +76,8 @@ func NewTemplateData(cfg *config.Config, cliVersion string) *TemplateData {
 		GitLabClientID:     cfg.Auth.GitLabClientID,
 		GitLabClientSecret: cfg.Auth.GitLabClientSecret,
 		GitLabBaseURL:      cfg.Auth.GitLabBaseURL,
-		AnthropicAPIKey:    cfg.AI.AnthropicAPIKey,
-		VoyageAPIKey:       cfg.AI.VoyageAPIKey,
-		OpenAIAPIKey:       cfg.AI.OpenAIAPIKey,
-		GoogleAPIKey:       cfg.AI.GoogleAPIKey,
+		OpenAIAPIKey:   cfg.AI.OpenAIAPIKey,
+		Context7APIKey: cfg.AI.Context7APIKey,
 		WebPort:            cfg.Ports.Web,
 		APIPort:            cfg.Ports.API,
 		MultiAgentPort:     cfg.Ports.MultiAgent,

@@ -39,10 +39,8 @@ type AuthConfig struct {
 
 // AIConfig holds AI provider API keys.
 type AIConfig struct {
-	AnthropicAPIKey string `yaml:"anthropic_api_key"`
-	VoyageAPIKey    string `yaml:"voyage_api_key"`
-	OpenAIAPIKey    string `yaml:"openai_api_key"`
-	GoogleAPIKey    string `yaml:"google_api_key"`
+	OpenAIAPIKey  string `yaml:"openai_api_key"`
+	Context7APIKey string `yaml:"context7_api_key"`
 }
 
 // PortsConfig holds port assignments for each service.

@@ -212,10 +212,8 @@ services:
       LLM_PROVIDER: openai
       OPENAI_API_BASE_URL: http://openai-proxy:8085/v1
       OPENAI_API_KEY: proxy-internal-key
-      ANTHROPIC_API_KEY: "{{.AnthropicAPIKey}}"
-      GOOGLE_API_KEY: "{{.GoogleAPIKey}}"
       EMBEDDING_PROVIDER: openai
-      VOYAGE_API_KEY: "{{.VoyageAPIKey}}"
+      CONTEXT7_API_KEY: "{{.Context7APIKey}}"
       VECTOR_STORE: pgvector
       POSTGRES_VECTOR_DIMENSION: "1024"
       CREDENTIAL_SERVICE_URL: http://credential-service:3001
@@ -296,10 +294,8 @@ services:
       LLM_PROVIDER: openai
       OPENAI_API_BASE_URL: http://openai-proxy:8085/v1
       OPENAI_API_KEY: proxy-internal-key
-      ANTHROPIC_API_KEY: "{{.AnthropicAPIKey}}"
-      GOOGLE_API_KEY: "{{.GoogleAPIKey}}"
       EMBEDDING_PROVIDER: openai
-      VOYAGE_API_KEY: "{{.VoyageAPIKey}}"
+      CONTEXT7_API_KEY: "{{.Context7APIKey}}"
       VECTOR_STORE: pgvector
       POSTGRES_VECTOR_DIMENSION: "1024"
       CREDENTIAL_SERVICE_URL: http://credential-service:3001
