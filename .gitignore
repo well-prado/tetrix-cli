@@ -1,0 +1,6 @@
+# Binary
+tetrix
+dist/
+
+# OS
+.DS_Store
