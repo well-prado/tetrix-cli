@@ -4,8 +4,8 @@ package config
 // Updated at build time or manually for each CLI release.
 const TetrixVersion = "latest"
 
-// DockerHubOrg is the DockerHub organization/user for published images.
-const DockerHubOrg = "mcastillo507"
+// DockerHubOrg is the container registry prefix for published images.
+const DockerHubOrg = "ghcr.io/well-prado"
 
 // ImageNames maps service names to their DockerHub image names.
 var ImageNames = map[string]string{
